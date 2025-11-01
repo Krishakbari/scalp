@@ -2,13 +2,14 @@ import React, { useState, useMemo } from "react";
 
 export default function NiftyOptionCalculator() {
   const [lotSize, setLotSize] = useState(1);
+  const [qtyPerLot, setQtyPerLot] = useState(75); // ✅ new input
   const [targetPoints, setTargetPoints] = useState(2);
   const [slPoints, setSlPoints] = useState(3);
   const [brokerage, setBrokerage] = useState(50);
   const [customWinRate, setCustomWinRate] = useState("");
   const [showCustomInput, setShowCustomInput] = useState(false);
 
-  const qty = lotSize * 75;
+  const qty = lotSize * qtyPerLot; // ✅ uses user-entered qty per lot
 
   const {
     profitPerTrade,
@@ -20,10 +21,8 @@ export default function NiftyOptionCalculator() {
     const profitPerTrade = targetPoints * qty - brokerage;
     const lossPerTrade = -(slPoints * qty) - brokerage;
 
-    // Breakeven win rate = (|loss per trade|) / (profit + |loss|)
     const breakevenRate =
-      (Math.abs(lossPerTrade) / (profitPerTrade + Math.abs(lossPerTrade))) *
-      100;
+      (Math.abs(lossPerTrade) / (profitPerTrade + Math.abs(lossPerTrade))) * 100;
 
     let customProfit = null;
     if (customWinRate !== "") {
@@ -49,7 +48,7 @@ export default function NiftyOptionCalculator() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 p-4 sm:p-6">
       <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-2">
-          Nifty Option Strategy Calculator
+          Option Strategy Calculator
         </h1>
         <p className="text-center text-gray-600 mb-6">
           Calculate breakeven, profit/loss & probability results
@@ -67,8 +66,20 @@ export default function NiftyOptionCalculator() {
               onChange={(e) => setLotSize(Number(e.target.value))}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-300"
             />
+          </div>
+
+          <div>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
+              Quantity per Lot
+            </label>
+            <input
+              type="number"
+              value={qtyPerLot}
+              onChange={(e) => setQtyPerLot(Number(e.target.value))}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-purple-300"
+            />
             <p className="text-xs text-gray-500 mt-1">
-              Quantity = {qty} (75 × {lotSize})
+              Total Quantity = {qtyPerLot} × {lotSize} = {qty}
             </p>
           </div>
 
