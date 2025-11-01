@@ -48,7 +48,7 @@ export default function NiftyOptionCalculator() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 p-4 sm:p-6">
       <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-2">
-          Option Strategy Calculator
+          शिव कृपा ही केवलम् 🔱
         </h1>
         <p className="text-center text-gray-600 mb-6">
           Calculate breakeven, profit/loss & probability results
